@@ -1,0 +1,5 @@
+{
+    "nome": "Jogo da Velha",
+    "autores": ["Greg"],
+    "arquivo principal": "main.py"
+}
