@@ -31,6 +31,7 @@ class Jogo:
                 
                 try:
                     self.__tabuleiro.marcarPosicao(indiceLinha, indiceColuna)
+                    print()
                     break
                 except Exception as err:
                     print(err)

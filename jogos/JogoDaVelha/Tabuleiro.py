@@ -1,25 +1,26 @@
 from Posicao import Posicao
 
 class Tabuleiro:
-    def __init__(self, marcadorJogador1='X', marcadorJogador2='O', espacamento=1, imprimirCabeçalhos=True):
+    def __init__(self, marcadorJogador1='X', marcadorJogador2='O', espacamentoVertical=0, espacamentoHorizontal=1, imprimirCabeçalhos=True):
         self.__posicoes = [[Posicao(), Posicao(), Posicao()],
                            [Posicao(), Posicao(), Posicao()],
                            [Posicao(), Posicao(), Posicao()]]
         self.__marcadorJogador1 = marcadorJogador1
         self.__marcadorJogador2 = marcadorJogador2
         self.__jogadorAtual = 1
-        self.__espacamento = espacamento
+        self.__espacamentoVertical = espacamentoVertical
+        self.__espacamentoHorizontal = espacamentoHorizontal
         self.__imprimirCabeçalhos = imprimirCabeçalhos
     
     def __imprimirLinhaVertical(self):
-        for _ in range(self.__espacamento):
+        for _ in range(self.__espacamentoVertical):
             if self.__imprimirCabeçalhos:
                 print('  ', end='')
-            print(f'{" " * (self.__espacamento * 2 + 1)}|{" " * (self.__espacamento * 2 + 1)}|')
+            print(f'{" " * (self.__espacamentoHorizontal * 2 + 1)}|{" " * (self.__espacamentoHorizontal * 2 + 1)}|')
     
     def imprimirTabuleiro(self):
         if self.__imprimirCabeçalhos:
-            print(f'{" " * (self.__espacamento + 2)}1{" " * (self.__espacamento * 2 + 1)}2{" " * (self.__espacamento * 2 + 1)}3')
+            print(f'{" " * (self.__espacamentoHorizontal + 2)}1{" " * (self.__espacamentoHorizontal * 2 + 1)}2{" " * (self.__espacamentoHorizontal * 2 + 1)}3')
             print()
         
         for numeroLinha in range(1, 4):
@@ -27,16 +28,16 @@ class Tabuleiro:
             
             if self.__imprimirCabeçalhos:
                 print(f'{numeroLinha} ', end='')
-            print(f'{" " * self.__espacamento}{self.__posicoes[numeroLinha-1][0]}{" " * self.__espacamento}|', end='')
-            print(f'{" " * self.__espacamento}{self.__posicoes[numeroLinha-1][1]}{" " * self.__espacamento}|', end='')
-            print(f'{" " * self.__espacamento}{self.__posicoes[numeroLinha-1][2]}')
+            print(f'{" " * self.__espacamentoHorizontal}{self.__posicoes[numeroLinha-1][0]}{" " * self.__espacamentoHorizontal}|', end='')
+            print(f'{" " * self.__espacamentoHorizontal}{self.__posicoes[numeroLinha-1][1]}{" " * self.__espacamentoHorizontal}|', end='')
+            print(f'{" " * self.__espacamentoHorizontal}{self.__posicoes[numeroLinha-1][2]}')
 
             self.__imprimirLinhaVertical()
 
             if numeroLinha != 3:
                 if self.__imprimirCabeçalhos:
                     print('  ', end='')
-                print(f'{"-" * (self.__espacamento * 2 + 1)} {"-" * (self.__espacamento * 2 + 1)} {"-" * (self.__espacamento * 2 + 1)}')
+                print(f'{"-" * (self.__espacamentoHorizontal * 2 + 1)} {"-" * (self.__espacamentoHorizontal * 2 + 1)} {"-" * (self.__espacamentoHorizontal * 2 + 1)}')
     
     def marcarPosicao(self, indiceLinha, indiceColuna):
         if not type(indiceLinha) is int or not type(indiceColuna) is int:
@@ -73,11 +74,11 @@ class Tabuleiro:
         
         # Verificando vitoria na diagonal principal
         if self.__verificarMarcacoesIguais([self.__posicoes[0][0], self.__posicoes[1][1], self.__posicoes[2][2]]):
-            return self.__posicoes[0][0]
+            return self.__posicoes[0][0].marcacao
         
         # Verificando vitoria na diagonal secundaria
         if self.__verificarMarcacoesIguais([self.__posicoes[0][2], self.__posicoes[1][1], self.__posicoes[2][0]]):
-            return self.__posicoes[0][2]
+            return self.__posicoes[0][2].marcacao
         
         return False
 
